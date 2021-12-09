@@ -1,0 +1,144 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>computacenter</groupId>
+  <artifactId>selenium-testng</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+     <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>11</java.version>
+        
+
+        <!-- test -->
+        <testNG.version>7.3.0</testNG.version>
+        <testNGXml>testSuites/defaultAll.xml</testNGXml>
+        <groups>end2end</groups>
+
+        <!-- plugins -->
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <maven.surefire.plugin.version>3.0.0-M4</maven.surefire.plugin.version>
+        
+        
+    </properties>
+
+    <dependencies>
+    
+        <!--		Selenium for web automation    -->
+        <!--		License Apache 2.0             -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+            <!--<scope>test</scope>-->
+        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/com.microsoft.edge/msedge-selenium-tools-java -->
+        <dependency>
+            <groupId>com.microsoft.edge</groupId>
+            <artifactId>msedge-selenium-tools-java</artifactId>
+            <version>3.141.0</version>
+        </dependency>
+        
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.31</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testNG.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- surefire-report -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-report-plugin</artifactId>
+            <version>${maven.surefire.plugin.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+
+        <plugins>
+
+            <!-- Compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <release>${java.version}</release>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- Surefire -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+
+                <configuration>
+
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${testNGXml}</suiteXmlFile>
+                        <!-- <suiteXmlFile>src/test/resources/test_parameters.xml</suiteXmlFile> -->
+                    </suiteXmlFiles>
+
+                    <failIfNoTests>true</failIfNoTests>
+
+                    <includes>
+                        <!--defaults-->
+                        <include>**/Test*.java</include>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                        <include>**/*TestCase.java</include>
+                    </includes>
+
+                    <groups>${groups}</groups>
+
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+    <reporting>
+        <plugins>
+
+            <!-- target/site/surefire-report.html -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>3.0.0-M4</version>
+            </plugin>
+
+        </plugins>
+    </reporting>
+  
+</project>
